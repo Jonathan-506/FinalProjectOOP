@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace FinalProjectOOP
 {
+    public class Gamble
+    {
 
-
-
+    }
 }

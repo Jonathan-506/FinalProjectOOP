@@ -6,35 +6,36 @@ using System.Threading.Tasks;
 
 namespace FinalProjectOOP
 {
-    public class Character
+
+    public class Card
     {
         public string Name { get; set; }
 
-        public int Chips { get; set; }
+        public int Value { get; set; }
 
-        public Character()
+
+        public Card()
         {
 
         }
 
+
     }
 
-    public class Player : Character
+    public class DeckOfCards
     {
-        public Player()
+        public List<Card> Deck { get; set; } = new List<Card>();
+
+        public DeckOfCards()
         {
 
         }
 
-    }
-
-    public class NPC : Character
-    {
-        public NPC()
+        public void AddCard(string name, int value)
         {
-            
+     
 
         }
-
     }
+
 }
