@@ -9,5 +9,12 @@ namespace FinalProjectOOP
     public class Gamble
     {
 
+        public void StartGame()
+        {
+            Console.WriteLine("Welcome To High Card");
+
+
+        }
+     
     }
 }

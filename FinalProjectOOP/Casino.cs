@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 
 namespace FinalProjectOOP
 {
-    public class Casino
+    public class Casino : CasinoGames
     {
         private string Name { get; }
         public Casino(string name) 
         {
-            Name = name;
+            Name = "Debilitating Debt";
         }
+
+    }
+
+    public class CasinoGames
+    {
 
     }
 }

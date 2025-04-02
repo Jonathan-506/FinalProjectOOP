@@ -1,40 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FinalProjectOOP
 {
 
+
     public class Card
     {
         public string Name { get; set; }
+        public string Suit { get; set; }
 
-        public int Value { get; set; }
-
-
-        public Card()
+        public Card(string name, string suit)
         {
-
+            Name = name;
+            Suit = suit;
         }
-
 
     }
-
-    public class DeckOfCards
+    public class Deck
     {
-        public List<Card> Deck { get; set; } = new List<Card>();
 
-        public DeckOfCards()
+        public List<Card> Cards { get; set; } 
+
+        public Deck()
         {
-
+            CreateDeck();
         }
 
-        public void AddCard(string name, int value)
+        public void CreateDeck()
         {
-     
+            List<string> cards = new List<string> {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
+            Cards = new List<Card>();
 
+            foreach (string card in cards)
+            {
+                Cards.Add(new Card(card, "Diamonds"));
+                Cards.Add(new Card(card, "Hearts"));
+                Cards.Add(new Card(card, "Clubs"));
+                Cards.Add(new Card(card, "Spade"));
+            }
+            
         }
     }
 
