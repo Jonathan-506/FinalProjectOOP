@@ -11,7 +11,7 @@ namespace FinalProjectOOP
         private string Name { get; }
         public Casino(string name) 
         {
-            Name = "Debilitating Debt";
+            Name = name;
         }
 
     }

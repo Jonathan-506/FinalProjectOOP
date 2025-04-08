@@ -4,6 +4,8 @@ public class Program
 {
     public static void Main()
     {
-        //Gamble.StartGame();
+        Gamble.StartGame();
+
+        
     }
 }

@@ -6,21 +6,22 @@ using System.Threading.Tasks;
 
 namespace FinalProjectOOP
 {
-    public class Character
+    public interface Character
     {
         public string Name { get; set; }
 
         public int Chips { get; set; }
 
-        public Character()
-        {
-
-        }
 
     }
 
     public class Player : Character
     {
+        public string Name { get; set; }
+
+        public int Chips { get; set; }
+
+
         public Player()
         {
 
@@ -30,6 +31,11 @@ namespace FinalProjectOOP
 
     public class NPC : Character
     {
+        public string Name { get; set; }
+
+        public int Chips { get; set; }
+
+
         public NPC()
         {
             
