@@ -24,7 +24,7 @@ namespace FinalProjectOOP
 
         public Player()
         {
-
+           
         }
 
     }
