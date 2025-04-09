@@ -10,8 +10,9 @@ namespace FinalProjectOOP
     public static class Tools
     {
 
-        public static void StartGame()
+        public static void Game()
         {
+            Casino casino = new Casino(GetCasinoName());
 
 
         }
