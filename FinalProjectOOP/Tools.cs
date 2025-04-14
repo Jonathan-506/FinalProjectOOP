@@ -15,6 +15,13 @@ namespace FinalProjectOOP
             Casino casino = new Casino(GetCasinoName());
 
 
+            Console.WriteLine("Welcome To High Card");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey(true);
+
+            var player = Tools.CharacterCreator();
+
+
         }
         public static Player PullSavedPlayer()
         {
@@ -42,7 +49,7 @@ namespace FinalProjectOOP
                 {
                     player1 = savedPlayer;
                 }
-                else
+                else if (response == "n")
                 {
 
                     Console.WriteLine("What would you like to name your character?");
@@ -50,8 +57,13 @@ namespace FinalProjectOOP
                     player1.Name = playerName;
                     player1.Chips = 1000;
                 }
+                else
+                {
+                    throw new ArgumentException("Unexpected answer, please answer with y or n");
+                   
+                }
             }
-            else
+            else 
             {
                 Console.WriteLine("What would you like to name your character?");
                 string playerName = Console.ReadLine();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalProjectOOP
 {
-    public class Casino : CasinoGames
+    public class Casino
     {
         private string Name { get; }
         public Casino(string name) 
@@ -14,10 +14,15 @@ namespace FinalProjectOOP
             Name = name;
         }
 
+        public void BlackJack()
+        {
+            var deck = new List<Card>();
+            
+            
+        }
+
+
     }
 
-    public class CasinoGames
-    {
 
-    }
 }
