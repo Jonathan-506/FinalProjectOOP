@@ -19,8 +19,60 @@ namespace FinalProjectOOP
             Console.WriteLine("Press any key to continue");
             Console.ReadKey(true);
 
-            var player = Tools.CharacterCreator();
+   
+            var player = CharacterCreator();
 
+            
+
+
+        }
+
+        public static Player CharacterCreator()
+        {
+            Player player1 = new Player();
+            Player savedPlayer = new Player();
+
+            savedPlayer = PullSavedPlayer();
+            while (true)
+            try
+            {
+                if (savedPlayer.Name != null)
+                {
+                    Console.WriteLine("You have a previously used character. Would you like to use your previous character? (y/n)");
+                    string response = Console.ReadLine();
+
+                    if (response == "y")
+                    {
+                        player1 = savedPlayer;
+                    }
+                    else if (response == "n")
+                    {
+
+                        Console.WriteLine("What would you like to name your character?");
+                        string playerName = Console.ReadLine();
+                        player1.Name = playerName;
+                        player1.Chips = 1000;
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Unexpected answer, please answer with y or n");
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("What would you like to name your character?");
+                    string playerName = Console.ReadLine();
+                    player1.Name = playerName;
+                    player1.Chips = 1000;
+                }
+
+                return player1;
+            }
+            catch (Exception ex)
+            {
+                    Console.WriteLine(ex.Message);
+            }
 
         }
         public static Player PullSavedPlayer()
@@ -31,47 +83,6 @@ namespace FinalProjectOOP
             var savedInfo = File.ReadAllText(path);
             savedPlayer = JsonSerializer.Deserialize<Player>(savedInfo);
             return savedPlayer;
-        }
-
-        public static Player CharacterCreator()
-        {
-            Player player1 = new Player();
-            Player savedPlayer = new Player();
-
-            savedPlayer = Tools.PullSavedPlayer();
-
-            if (savedPlayer.Name != null)
-            {
-                Console.WriteLine("You have a previously used character. Would you like to use your previous character? (y/n)");
-                string response = Console.ReadLine();
-
-                if (response == "y")
-                {
-                    player1 = savedPlayer;
-                }
-                else if (response == "n")
-                {
-
-                    Console.WriteLine("What would you like to name your character?");
-                    string playerName = Console.ReadLine();
-                    player1.Name = playerName;
-                    player1.Chips = 1000;
-                }
-                else
-                {
-                    throw new ArgumentException("Unexpected answer, please answer with y or n");
-                   
-                }
-            }
-            else 
-            {
-                Console.WriteLine("What would you like to name your character?");
-                string playerName = Console.ReadLine();
-                player1.Name = playerName;
-                player1.Chips = 1000;
-            }
-
-            return player1;
         }
 
         public static void SavePlayer()
