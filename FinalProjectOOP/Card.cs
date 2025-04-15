@@ -28,7 +28,7 @@ namespace FinalProjectOOP
 
         public Deck()
         {
-            CreateDeck();
+            
         }
 
         public void CreateDeck()
@@ -44,6 +44,16 @@ namespace FinalProjectOOP
                 Cards.Add(new Card(card, "Spade"));
             }
             
+        }
+
+        public void CreateDeckBlackJack()
+        {
+
+            Deck deck = new Deck();
+            deck.CreateDeck();
+
+            Dictionary<Card, int> deckforBlkJk = deck.Cards.ToDictionary(card => card, card => Tools.GetValue(card));
+
         }
     }
 

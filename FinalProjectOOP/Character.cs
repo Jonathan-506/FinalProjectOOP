@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalProjectOOP
 {
-    public interface Character
+    public abstract class Character
     {
         public string Name { get; set; }
 
@@ -17,9 +17,7 @@ namespace FinalProjectOOP
 
     public class Player : Character
     {
-        public string Name { get; set; }
-
-        public int Chips { get; set; }
+       
 
 
         public Player()
@@ -31,10 +29,7 @@ namespace FinalProjectOOP
 
     public class NPC : Character
     {
-        public string Name { get; set; }
-
-        public int Chips { get; set; }
-
+       
 
         public NPC()
         {

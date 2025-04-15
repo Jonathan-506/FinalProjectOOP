@@ -15,6 +15,7 @@ namespace FinalProjectTests
         [Test]
         public void CreateDeckTest()
         {
+            deck.CreateDeck();
             Assert.AreEqual(52, deck.Cards.Count);
         }
 

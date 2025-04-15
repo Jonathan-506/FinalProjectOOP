@@ -16,7 +16,7 @@ namespace FinalProjectOOP
 
         public void BlackJack()
         {
-            var deck = new List<Card>();
+            
             
             
         }
