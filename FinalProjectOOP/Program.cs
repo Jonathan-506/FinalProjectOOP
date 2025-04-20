@@ -9,12 +9,5 @@ public class Program
 
 
 
-        //bool gameSignal = true;
-
-        //while (gameSignal)
-        //{
-        //    Tools.StartGame();
-
-        //}
     }
 }

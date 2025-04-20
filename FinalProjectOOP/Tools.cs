@@ -10,22 +10,7 @@ namespace FinalProjectOOP
     public static class Tools
     {
 
-        public static void Game()
-        {
-            Casino casino = new Casino(GetCasinoName());
-
-
-            Console.WriteLine("Welcome To High Card");
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey(true);
-
-   
-            var player = CharacterCreator();
-
-            
-
-
-        }
+  
 
         public static Player CharacterCreator()
         {
@@ -85,9 +70,9 @@ namespace FinalProjectOOP
             return savedPlayer;
         }
 
-        public static void SavePlayer()
+        public static void SavePlayer(Player player)
         {
-            var Player = new Player();
+            var Player = player;
             string path = "C:/Users/jonathan.owen/Source/Repos/FinalProjectOOP/FinalProjectOOP/SaveSheet.json";
             string stuffToSave = JsonSerializer.Serialize(Player);
             File.WriteAllText(path, stuffToSave);
