@@ -153,12 +153,10 @@ namespace FinalProjectOOP
             return value;
         }
 
-        public static int IsValidNumber(Player player)
+        public static int IsValidNumber(string response)
         {
             int amount;
 
-            Console.WriteLine($" Welcome to the Table {player.Name}! \n How much would you like to bet? You currently have {player.Chips} chips.");
-            string response = Console.ReadLine();
             bool isValid = int.TryParse(response, out amount);
 
             if (!isValid)

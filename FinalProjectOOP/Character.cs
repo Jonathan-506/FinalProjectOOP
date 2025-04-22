@@ -10,7 +10,7 @@ namespace FinalProjectOOP
     {
         public string Name { get; set; }
 
-        public int Chips { get; set; }
+        public double Chips { get; set; }
 
 
     }
