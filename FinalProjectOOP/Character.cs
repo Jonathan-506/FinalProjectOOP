@@ -38,4 +38,41 @@ namespace FinalProjectOOP
         }
 
     }
+
+
+
+    public class Racer
+        {
+            public string Name { get; set; }
+            public int ProgressCounter { get; set; }
+            public int RaceTrack { get; set; } = 50;
+            public Racer()
+            {
+
+            }
+
+
+            internal void Move()
+            {
+
+                Random rnd = new Random();
+
+            
+
+                while (ProgressCounter < RaceTrack)
+                {
+                    ProgressCounter += rnd.Next(1, 6);
+                    Thread.Sleep(rnd.Next(500, 1001));
+
+                }
+                lock (this)
+                {
+                    Racing.FinishLine(Name);
+
+                }
+
+            }
+        }
+
+   
 }

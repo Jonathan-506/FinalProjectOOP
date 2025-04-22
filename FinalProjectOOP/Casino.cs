@@ -63,6 +63,7 @@ namespace FinalProjectOOP
         public void Race()
         {
 
+
         }
 
 
@@ -126,5 +127,49 @@ namespace FinalProjectOOP
 
     }
 
+    public class Racing
+    {
+        public static int RaceOver { get; set; } = 0;
+        public static void StartRace()
+        {
+            Console.WriteLine("Racers Start your Engines!");
 
+            Racer horse1 = new Racer();
+            Racer horse2 = new Racer();
+            Racer horse3 = new Racer();
+            horse1.Name = "Brown";
+            horse2.Name = "Mustang";
+            horse3.Name = "Pontiac";
+
+            Console.WriteLine("Ready.... Set........ GOOOOO!");
+
+            Thread t1 = new Thread(horse1.Move);
+            Thread t2 = new Thread(horse2.Move);
+            Thread t3 = new Thread(horse3.Move);
+
+            t1.Start();
+            t2.Start();
+            t3.Start();
+        }
+
+        public static void FinishLine(string name)
+        {
+            if (RaceOver == 0)
+            {
+                Console.Clear();
+                RaceOver++;
+                Console.WriteLine(name + " has taken First place!");
+
+            }
+            else if (RaceOver == 1)
+            {
+                RaceOver++;
+                Console.WriteLine(name + " has taken Second place!");
+            }
+            else if (RaceOver == 2)
+            {
+                Console.WriteLine(name + " has taken Third place!");
+            }
+        }
+    }
 }
