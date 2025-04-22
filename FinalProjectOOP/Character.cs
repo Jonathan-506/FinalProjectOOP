@@ -45,7 +45,8 @@ namespace FinalProjectOOP
         {
             public string Name { get; set; }
             public int ProgressCounter { get; set; }
-            public int RaceTrack { get; set; } = 50;
+            public int Position { get; set; }
+            private int RaceTrack { get; set; } = 50;
             public Racer()
             {
 
@@ -67,6 +68,7 @@ namespace FinalProjectOOP
                 }
                 lock (this)
                 {
+                    Position = 1;
                     Racing.FinishLine(Name);
 
                 }

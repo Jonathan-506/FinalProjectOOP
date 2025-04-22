@@ -60,10 +60,42 @@ namespace FinalProjectOOP
 
         }
 
-        public void Race()
+        public void Race(Player player)
         {
+            Console.WriteLine($" Welcome to the RaceTrack {player.Name}!" +
+                $" \n We have three racers you can bet on Brown, Mustang, and Pontiac. Who would you like to bet on? (b for Brown, m for Mustang, and p for Pontiac");
+            string chosenRacer = Console.ReadLine();
 
 
+            Racer horse1 = new Racer();
+            Racer horse2 = new Racer();
+            Racer horse3 = new Racer();
+            horse1.Name = "Brown";
+            horse2.Name = "Mustang";
+            horse3.Name = "Pontiac";
+
+
+            Console.WriteLine("How much would you like to bet?");
+            int amount = Tools.IsValidNumber(Console.ReadLine());
+
+            Console.WriteLine($"You are betting {amount} chips!");
+
+            Racing.StartRace();
+
+            if (chosenRacer == "b" && horse1.Position == 1)
+            {
+                Console.WriteLine("You Win!");
+            }
+            else if (chosenRacer == "m" && horse2.Position == 1)
+            {
+                Console.WriteLine("You Win!");
+
+            }
+            else if (chosenRacer == "p" && horse3.Position == 1)
+            {
+                Console.WriteLine("You Win!");
+
+            }
         }
 
 
@@ -134,12 +166,7 @@ namespace FinalProjectOOP
         {
             Console.WriteLine("Racers Start your Engines!");
 
-            Racer horse1 = new Racer();
-            Racer horse2 = new Racer();
-            Racer horse3 = new Racer();
-            horse1.Name = "Brown";
-            horse2.Name = "Mustang";
-            horse3.Name = "Pontiac";
+
 
             Console.WriteLine("Ready.... Set........ GOOOOO!");
 
