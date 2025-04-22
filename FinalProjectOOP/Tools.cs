@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -150,6 +151,21 @@ namespace FinalProjectOOP
             }
 
             return value;
+        }
+
+        public static int IsValidNumber(Player player)
+        {
+            int amount;
+
+            Console.WriteLine($" Welcome to the Table {player.Name}! \n How much would you like to bet? You currently have {player.Chips} chips.");
+            string response = Console.ReadLine();
+            bool isValid = int.TryParse(response, out amount);
+
+            if (!isValid)
+            {
+                throw new ArgumentException("Sorry! That cannot be used.");
+            }
+            return amount;
         }
     }
 

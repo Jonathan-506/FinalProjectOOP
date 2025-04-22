@@ -22,7 +22,10 @@ namespace FinalProjectOOP
 
             while (gameSignal)
             {
-                GameMenu(player, gameSignal);
+                Console.WriteLine($"Welcome to {casino.Name}");
+
+                Console.Clear();
+                GameMenu(player, gameSignal, casino);
             }
 
             Console.WriteLine("Thanks for playing! \n Have a Lucky day!");
@@ -30,10 +33,10 @@ namespace FinalProjectOOP
         }
 
 
-        public static void GameMenu(Player player, bool gameSignal)
+        public static void GameMenu(Player player, bool gameSignal, Casino casino)
         {
             Console.WriteLine("What would you like to do?");
-            Console.WriteLine("1. Save \n 2. Save and Quit \n 3. Roulette Table \n 4. Horse Race \n 5. BlackJack");
+            Console.WriteLine(" 1. Save \n 2. Save and Quit \n 3. Roulette Table \n 4. Horse Race \n 5. BlackJack");
             int playerResponse = int.Parse(Console.ReadLine());
             switch (playerResponse)
             {
@@ -45,6 +48,7 @@ namespace FinalProjectOOP
                     gameSignal = false;
                     break;
                 case (int)MenuNav.RouletteTable:
+                    casino.Roulette(player);
                     break;
                 case (int)MenuNav.Race:
                     break;
