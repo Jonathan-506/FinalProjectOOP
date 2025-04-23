@@ -45,6 +45,7 @@ namespace FinalProjectOOP
                 case (int)MenuNav.Save:
                     Tools.SavePlayer(player);
                     Console.WriteLine("Game saved!");
+                    Console.ReadKey(true);
                     break;
                 case (int)MenuNav.Quit:
                     Tools.SavePlayer(player);
@@ -54,6 +55,8 @@ namespace FinalProjectOOP
                     casino.Roulette(player);
                     break;
                 case (int)MenuNav.Race:
+                    casino.Race(player);
+
                     break;
                 case (int)MenuNav.BlackJack:
                     break;

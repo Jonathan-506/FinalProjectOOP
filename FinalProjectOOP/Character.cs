@@ -12,6 +12,8 @@ namespace FinalProjectOOP
 
         public double Chips { get; set; }
 
+        public Dictionary<Card, int> Hand { get; set; }
+
 
     }
 
@@ -46,7 +48,7 @@ namespace FinalProjectOOP
             public string Name { get; set; }
             public int ProgressCounter { get; set; }
             public int Position { get; set; }
-            private int RaceTrack { get; set; } = 50;
+            private int RaceTrack { get; set; } = 25;
             public Racer()
             {
 
@@ -68,8 +70,8 @@ namespace FinalProjectOOP
                 }
                 lock (this)
                 {
-                    Position = 1;
-                    Racing.FinishLine(Name);
+                
+                    Racing.FinishLine(Name, Position);
 
                 }
 

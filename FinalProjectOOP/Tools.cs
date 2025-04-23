@@ -64,7 +64,12 @@ namespace FinalProjectOOP
         public static Player PullSavedPlayer()
         {
             var savedPlayer = new Player();
-            string path = "C:/Users/jonathan.owen/Source/Repos/FinalProjectOOP/FinalProjectOOP/SaveSheet.json";
+
+
+            string path = Path.Combine(AppContext.BaseDirectory, @"..\..\..\SaveSheet.json");
+            //string path = "C:/Users/jonathan.owen/Source/Repos/FinalProjectOOP/FinalProjectOOP/SaveSheet.json";
+
+            //string n = "C:\Users\Jonathan\source\repos\FinalProjectOOP\FinalProjectOOP\SaveSheet.json"
 
             var savedInfo = File.ReadAllText(path);
             savedPlayer = JsonSerializer.Deserialize<Player>(savedInfo);
@@ -74,8 +79,11 @@ namespace FinalProjectOOP
         public static void SavePlayer(Player player)
         {
             var Player = player;
-            string path = "C:/Users/jonathan.owen/Source/Repos/FinalProjectOOP/FinalProjectOOP/SaveSheet.json";
-            string stuffToSave = JsonSerializer.Serialize(Player);
+
+            string path = Path.Combine(AppContext.BaseDirectory, @"..\..\..\SaveSheet.json");
+
+            //string path = "C:/Users/jonathan.owen/Source/Repos/FinalProjectOOP/FinalProjectOOP/SaveSheet.json";
+            string stuffToSave = JsonSerializer.Serialize(Player, new JsonSerializerOptions { WriteIndented = true});
             File.WriteAllText(path, stuffToSave);
         }
         public static string GetCasinoName()

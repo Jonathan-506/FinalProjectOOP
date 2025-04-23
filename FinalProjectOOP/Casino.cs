@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,10 +18,25 @@ namespace FinalProjectOOP
             Name = name;
         }
 
-        public void BlackJack()
+        public void BlackJack(Player player)
         {
+            int bet;
+            Console.WriteLine($" Welcome to the Table {player.Name}!\n How much would you like to bet? You currently have {player.Chips} chips.");
+            string response = Console.ReadLine();
+
+            NPC dealer = new NPC();
+            bool signal = true;
+            int total = 0;
             
-            
+            while(signal)
+            {
+                if (total > 21)
+                {
+                    Console.WriteLine("Bust!");
+                    signal = false;
+                }
+
+            }
             
         }
 
@@ -60,10 +78,11 @@ namespace FinalProjectOOP
 
         }
 
-        public void Race(Player player)
+        public async Task Race(Player player)
         {
             Console.WriteLine($" Welcome to the RaceTrack {player.Name}!" +
-                $" \n We have three racers you can bet on Brown, Mustang, and Pontiac. Who would you like to bet on? (b for Brown, m for Mustang, and p for Pontiac");
+                $" \n We have three racers you can bet on Brown, Mustang, and Pontiac.  If your horse wins you get 500 chips. " +
+                $" \n Who would you like to bet on? (b for Brown, m for Mustang, and p for Pontiac)");
             string chosenRacer = Console.ReadLine();
 
 
@@ -75,26 +94,36 @@ namespace FinalProjectOOP
             horse3.Name = "Pontiac";
 
 
-            Console.WriteLine("How much would you like to bet?");
+            Console.WriteLine($"You have {player.Chips} chips. How much would you like to bet?");
             int amount = Tools.IsValidNumber(Console.ReadLine());
 
             Console.WriteLine($"You are betting {amount} chips!");
+            player.Chips -= amount;
 
-            Racing.StartRace();
-
+           (Racing.StartRace(horse1, horse2, horse3);
+           
             if (chosenRacer == "b" && horse1.Position == 1)
             {
                 Console.WriteLine("You Win!");
+                player.Chips += amount + 500;
+
             }
             else if (chosenRacer == "m" && horse2.Position == 1)
             {
                 Console.WriteLine("You Win!");
+                player.Chips += amount + 500;
 
             }
             else if (chosenRacer == "p" && horse3.Position == 1)
             {
                 Console.WriteLine("You Win!");
+                player.Chips += amount + 500;
 
+            }
+            else
+            {
+                Console.WriteLine("You lose! Better luck next time!");
+                Console.ReadKey(true);
             }
         }
 
@@ -132,7 +161,7 @@ namespace FinalProjectOOP
                     Console.WriteLine("The Wheel is being spun!");
                      wheelnumber = rnd.Next(0, 37);
                     Console.WriteLine("The Wheel has finished spinning");
-
+                    
                     if (response == "b" && wheelnumber % 2 == 0)
                     {
                         Console.WriteLine("You Win!");
@@ -162,7 +191,7 @@ namespace FinalProjectOOP
     public class Racing
     {
         public static int RaceOver { get; set; } = 0;
-        public static void StartRace()
+        public static void StartRace(Racer horse1, Racer horse2, Racer horse3)
         {
             Console.WriteLine("Racers Start your Engines!");
 
@@ -177,25 +206,29 @@ namespace FinalProjectOOP
             t1.Start();
             t2.Start();
             t3.Start();
+            
         }
 
-        public static void FinishLine(string name)
+        public static void FinishLine(string name, int position)
         {
             if (RaceOver == 0)
             {
                 Console.Clear();
                 RaceOver++;
                 Console.WriteLine(name + " has taken First place!");
+                position = 1;
 
             }
             else if (RaceOver == 1)
             {
                 RaceOver++;
                 Console.WriteLine(name + " has taken Second place!");
+                position = 2;
             }
             else if (RaceOver == 2)
             {
                 Console.WriteLine(name + " has taken Third place!");
+                position = 3;
             }
         }
     }
