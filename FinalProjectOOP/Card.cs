@@ -13,11 +13,13 @@ namespace FinalProjectOOP
     {
         public string Name { get; set; }
         public string Suit { get; set; }
+        public int Value { get; set; }
 
-        public Card(string name, string suit)
+        public Card(string name, string suit, int value)
         {
             Name = name;
             Suit = suit;
+            Value = value;
         }
 
     }
@@ -38,23 +40,23 @@ namespace FinalProjectOOP
 
             foreach (string card in cards)
             {
-                Cards.Add(new Card(card, "Diamonds"));
-                Cards.Add(new Card(card, "Hearts"));
-                Cards.Add(new Card(card, "Clubs"));
-                Cards.Add(new Card(card, "Spade"));
+                Cards.Add(new Card(card, "Diamonds", Tools.GetValue(card)));
+                Cards.Add(new Card(card, "Hearts", Tools.GetValue(card)));
+                Cards.Add(new Card(card, "Clubs", Tools.GetValue(card)));
+                Cards.Add(new Card(card, "Spade", Tools.GetValue(card)));
             }
             
         }
 
-        public void CreateDeckBlackJack()
-        {
+        //public static List< int> CreateDeckBlackJack(List<Card> deckforBlkJk)
+        //{
 
-            Deck deck = new Deck();
-            deck.CreateDeck();
+        //    Deck deck = new Deck();
+        //    deck.CreateDeck();
 
-            Dictionary<Card, int> deckforBlkJk = deck.Cards.ToDictionary(card => card, card => Tools.GetValue(card));
+        //    return deckforBlkJk = deck.Cards.ToDictionary(card => card, card.Value => Tools.GetValue(card));
 
-        }
+        //}
     }
 
 }

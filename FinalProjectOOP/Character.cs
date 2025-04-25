@@ -12,7 +12,7 @@ namespace FinalProjectOOP
 
         public double Chips { get; set; }
 
-        public Dictionary<Card, int> Hand { get; set; }
+        public List<Card> Hand { get; set; }
 
 
     }

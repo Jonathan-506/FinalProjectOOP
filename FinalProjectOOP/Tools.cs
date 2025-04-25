@@ -120,11 +120,11 @@ namespace FinalProjectOOP
 
         }
 
-        public static int GetValue(Card card)
+        public static int GetValue(string card)
         {
             int value = 0;
 
-            switch (card.Name)
+            switch (card)
             {
                 case "Ace":
                     value = 1;

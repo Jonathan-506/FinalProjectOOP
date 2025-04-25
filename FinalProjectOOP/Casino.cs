@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,22 +22,25 @@ namespace FinalProjectOOP
         public void BlackJack(Player player)
         {
             int bet;
-            Console.WriteLine($" Welcome to the Table {player.Name}!\n How much would you like to bet? You currently have {player.Chips} chips.");
-            string response = Console.ReadLine();
+            Console.WriteLine($" Welcome to the Table {player.Name}!" +
+                $"\n How much would you like to bet? You currently have {player.Chips} chips.");
+            bet = Tools.IsValidNumber(Console.ReadLine());
+
+            Console.WriteLine($"You are betting {bet} chips");
+            player.Chips -= bet;
+            Console.ReadKey(true);
 
             NPC dealer = new NPC();
-            bool signal = true;
-            int total = 0;
-            
-            while(signal)
-            {
-                if (total > 21)
-                {
-                    Console.WriteLine("Bust!");
-                    signal = false;
-                }
 
+            BlackJackGame(player, dealer, bet);
+
+            Console.WriteLine("Would you like to play again y/n?");
+            string response = Console.ReadLine();
+            if (response == "y")
+            {
+                BlackJack(player);
             }
+
             
         }
 
@@ -100,24 +104,27 @@ namespace FinalProjectOOP
             Console.WriteLine($"You are betting {amount} chips!");
             player.Chips -= amount;
 
-           (Racing.StartRace(horse1, horse2, horse3);
-           
-            if (chosenRacer == "b" && horse1.Position == 1)
+            await(Racing.StartRace(horse1, horse2, horse3));
+            
+             if (chosenRacer == "b" && horse1.Position == 1)
             {
                 Console.WriteLine("You Win!");
                 player.Chips += amount + 500;
+                Console.ReadKey(true);
 
             }
             else if (chosenRacer == "m" && horse2.Position == 1)
             {
                 Console.WriteLine("You Win!");
                 player.Chips += amount + 500;
+                Console.ReadKey(true);
 
             }
             else if (chosenRacer == "p" && horse3.Position == 1)
             {
                 Console.WriteLine("You Win!");
                 player.Chips += amount + 500;
+                Console.ReadKey(true);
 
             }
             else
@@ -183,15 +190,153 @@ namespace FinalProjectOOP
                     break;
             }
 
+             
+
         }
 
+        internal void BlackJackGame(Player player, NPC dealer, int bet)
+        {
+            int total = 0;
+            int dealerTotal = 0;
+            var deck = new Deck();
+            Random rnd = new Random();
+            int chosenCard;
+            
+            
+          
+            chosenCard = rnd.Next(0, deck.Cards.Count + 1);
+            dealer.Hand.Add(deck.Cards[chosenCard]);
+            dealerTotal += deck.Cards[chosenCard].Value;
+            deck.Cards.RemoveAt(chosenCard);
+
+            chosenCard = rnd.Next(0, deck.Cards.Count + 1);
+            dealer.Hand.Add(deck.Cards[chosenCard]);
+            if (deck.Cards[chosenCard].Name == "Ace")
+            {
+                Console.WriteLine("You drew an Ace would you like it to be a 1 or an 11");
+                int response = Tools.GetValue(Console.ReadLine());
+                
+            }
+            dealerTotal += deck.Cards[chosenCard].Value;
+            deck.Cards.RemoveAt(chosenCard);
+
+
+
+
+            chosenCard = rnd.Next(0, deck.Cards.Count + 1);
+            player.Hand.Add(deck.Cards[chosenCard]);
+            total =+ deck.Cards[chosenCard].Value;
+            deck.Cards.RemoveAt(chosenCard);
+
+            chosenCard = rnd.Next(0, deck.Cards.Count + 1);
+            player.Hand.Add(deck.Cards[chosenCard]);
+            total =+ deck.Cards[chosenCard].Value;
+            deck.Cards.RemoveAt(chosenCard);
+
+            while (true)
+            {
+                while (total <= 21)
+                {
+                    Console.WriteLine($"Your Hand total is: {total} \nThe Dealer's total is: {dealerTotal}");
+                    Console.WriteLine("Would you like to hit or stay? (h for hit, s for stay)");
+                    string response = Console.ReadLine();
+
+                    if (response == "h")
+                    {
+                        chosenCard = rnd.Next(0, deck.Cards.Count + 1);
+                        player.Hand.Add(deck.Cards[chosenCard]);
+                        total = +deck.Cards[chosenCard].Value;
+                        deck.Cards.RemoveAt(chosenCard);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Your total is: {total}");
+                        Console.ReadKey(true);
+                        break;
+                    }
+                }
+
+                while(dealerTotal < 17)
+                {
+                    Console.WriteLine($"Your total: {total}" +
+                        $"\nDealer total: {dealerTotal}");
+                    Console.ReadKey(true);
+                    chosenCard = rnd.Next(0, deck.Cards.Count + 1);
+                    dealer.Hand.Add(deck.Cards[chosenCard]);
+                    dealerTotal += deck.Cards[chosenCard].Value;
+                    deck.Cards.RemoveAt(chosenCard);
+                }
+
+                if (total > 21)
+                {
+                    Console.WriteLine("Bust!");
+                    player.Hand.Clear();
+                    dealer.Hand.Clear();
+                    Console.ReadKey(true);
+                    break;
+
+                }
+                else if (total == 21 && dealerTotal == 21)
+                    {
+                        Console.WriteLine("Draw!!");
+                        player.Chips += bet;
+                        player.Hand.Clear();
+                        dealer.Hand.Clear();
+                        break;
+                    }
+                else if (total == 21)
+                    {
+                        Console.WriteLine("You win!");
+                        player.Chips += bet * 3;
+                        player.Hand.Clear();
+                        dealer.Hand.Clear();
+                        Console.ReadKey(true);
+                        break;
+
+
+                    }
+                    else if (dealerTotal > 21)
+                    {
+                        Console.WriteLine("You win!");
+                        player.Chips += bet * 2;
+                        player.Hand.Clear();
+                        dealer.Hand.Clear();
+                        Console.ReadKey(true);
+                        break;
+
+                    }
+                    else if (total < 21 && total > dealerTotal)
+                    {
+                        Console.WriteLine("You win!");
+                        player.Chips += bet * 2;
+                        player.Hand.Clear();
+                        dealer.Hand.Clear();
+                        Console.ReadKey(true);
+                        break;
+
+                    }
+                    else if (dealerTotal < 21 && dealerTotal > total)
+                    {
+                        Console.WriteLine("You Lose!");
+                        player.Hand.Clear();
+                        dealer.Hand.Clear();
+                        Console.ReadKey(true);
+                        break;
+                    }
+
+            }
+
+            
+
+
+        }
 
     }
 
     public class Racing
     {
         public static int RaceOver { get; set; } = 0;
-        public static void StartRace(Racer horse1, Racer horse2, Racer horse3)
+        public static Task StartRace(Racer horse1, Racer horse2, Racer horse3)
         {
             Console.WriteLine("Racers Start your Engines!");
 
@@ -206,6 +351,8 @@ namespace FinalProjectOOP
             t1.Start();
             t2.Start();
             t3.Start();
+
+            return null;
             
         }
 

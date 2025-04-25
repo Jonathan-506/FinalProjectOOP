@@ -59,6 +59,7 @@ namespace FinalProjectOOP
 
                     break;
                 case (int)MenuNav.BlackJack:
+                    casino.BlackJack(player);
                     break;
                 case (int)MenuNav.PlayerInfo:
                     Console.WriteLine($"Name: {player.Name} \nChips: {player.Chips}");
