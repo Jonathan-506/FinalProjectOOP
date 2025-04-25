@@ -60,7 +60,7 @@ namespace FinalProjectOOP
                     casino.Roulette(player);
                     break;
                 case (int)MenuNav.Race:
-                    casino.Race(player);
+                     casino.Race(player);
 
                     break;
                 case (int)MenuNav.BlackJack:

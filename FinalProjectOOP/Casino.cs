@@ -112,7 +112,7 @@ namespace FinalProjectOOP
             Console.WriteLine($"You are betting {amount} chips!");
             player.Chips -= amount;
 
-            await(Racing.StartRace(horse1, horse2, horse3));
+            await Racing.StartRace(horse1, horse2, horse3);
             
              if (chosenRacer == "b" && horse1.Position == 1)
             {
@@ -146,7 +146,7 @@ namespace FinalProjectOOP
                 string response = Console.ReadLine();
                 if (response == "y")
                 {
-                    Race(player);
+                    await Race(player);
                 }
             }
         }
