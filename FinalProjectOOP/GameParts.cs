@@ -20,7 +20,7 @@ namespace FinalProjectOOP
 
             var player = Tools.CharacterCreator();
 
-            while (casino.OpenOrClosed)
+            while (casino.OpenOrClosed || player.Chips > 0)
             {
                 Console.WriteLine($"Welcome to {casino.Name}! \n");
 
@@ -28,7 +28,12 @@ namespace FinalProjectOOP
                 Console.Clear();
                 GameMenu(player, casino);
             }
-
+            if(player.Chips <= 0)
+            {
+                Console.WriteLine("You lost all your chips and never hit it big! \n Your story fades into oblivion.");
+                player.Name = null;
+                Tools.SavePlayer(player);
+            }
 
             Console.WriteLine(" The Casino has closed for the day. \n Thanks for playing!  Have a Lucky day!");
         }
@@ -36,7 +41,7 @@ namespace FinalProjectOOP
 
         public static void GameMenu(Player player, Casino casino)
         {
-            bool gameSignal;
+            
             Console.WriteLine("What would you like to do?");
             Console.WriteLine(" 1. Save \n 2. Save and Quit \n 3. Roulette Table \n 4. Horse Race \n 5. BlackJack \n 6. Player Information");
             int playerResponse = int.Parse(Console.ReadLine());

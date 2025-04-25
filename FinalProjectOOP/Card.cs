@@ -22,6 +22,21 @@ namespace FinalProjectOOP
             Value = value;
         }
 
+        internal static void AceValue(Card card, int total)
+        {
+
+            if (card.Name == "Ace" && total <= 10)
+            {
+                card.Value = 11;
+
+            }
+            else if (card.Name == "Ace" && total > 10)
+            {
+                card.Value = 1;
+            }
+
+        }
+
     }
     public class Deck
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
@@ -21,6 +22,7 @@ namespace FinalProjectOOP
 
         public void BlackJack(Player player)
         {
+            
             int bet;
             Console.WriteLine($" Welcome to the Table {player.Name}!" +
                 $"\n How much would you like to bet? You currently have {player.Chips} chips.");
@@ -28,20 +30,22 @@ namespace FinalProjectOOP
 
             Console.WriteLine($"You are betting {bet} chips");
             player.Chips -= bet;
-            Console.ReadKey(true);
+            
 
             NPC dealer = new NPC();
 
             BlackJackGame(player, dealer, bet);
 
+            if (player.Chips > 0)
+            {
             Console.WriteLine("Would you like to play again y/n?");
             string response = Console.ReadLine();
             if (response == "y")
             {
                 BlackJack(player);
             }
+            }
 
-            
         }
 
         public void Roulette(Player player)
@@ -67,12 +71,16 @@ namespace FinalProjectOOP
 
             WheelFortune(response, betAmount, player);
 
-            Console.WriteLine("\nWould you like to play again? (y/n)");
+            if (player.Chips > 0)
+            {
+            Console.WriteLine("Would you like to play again? (y/n)");
             response = Console.ReadLine();
 
             if(response == "y")
             {
                 Roulette(player);
+            }
+
             }
 
         }
@@ -132,6 +140,15 @@ namespace FinalProjectOOP
                 Console.WriteLine("You lose! Better luck next time!");
                 Console.ReadKey(true);
             }
+             if(player.Chips > 0)
+            {
+                Console.WriteLine("Would you like to play again y/n");
+                string response = Console.ReadLine();
+                if (response == "y")
+                {
+                    Race(player);
+                }
+            }
         }
 
 
@@ -168,16 +185,17 @@ namespace FinalProjectOOP
                     Console.WriteLine("The Wheel is being spun!");
                      wheelnumber = rnd.Next(0, 37);
                     Console.WriteLine("The Wheel has finished spinning");
+                    Console.WriteLine($"The Wheel's number is {wheelnumber} and the Color is {WheelColor(wheelnumber)}");
                     
                     if (response == "b" && wheelnumber % 2 == 0)
                     {
                         Console.WriteLine("You Win!");
-                        player.Chips += betAmount * 5;
+                        player.Chips += betAmount * 2;
                     }
-                    else if (response == "r" && wheelnumber % 2 != 1)
+                    else if (response == "r" && wheelnumber % 2 != 0)
                     {
                         Console.WriteLine("You Win!");
-                        player.Chips += betAmount * 5;
+                        player.Chips += betAmount * 2;
                     }
                     else
                     {
@@ -194,11 +212,19 @@ namespace FinalProjectOOP
 
         }
 
+        internal string WheelColor(int num)
+        {
+            string color = num % 2 == 0 ? "Black" : "Red";
+
+            return color;
+        }
+
         internal void BlackJackGame(Player player, NPC dealer, int bet)
         {
             int total = 0;
             int dealerTotal = 0;
             var deck = new Deck();
+            deck.CreateDeck();
             Random rnd = new Random();
             int chosenCard;
             
@@ -206,36 +232,31 @@ namespace FinalProjectOOP
           
             chosenCard = rnd.Next(0, deck.Cards.Count + 1);
             dealer.Hand.Add(deck.Cards[chosenCard]);
+            Card.AceValue(deck.Cards[chosenCard], dealerTotal);
             dealerTotal += deck.Cards[chosenCard].Value;
             deck.Cards.RemoveAt(chosenCard);
 
             chosenCard = rnd.Next(0, deck.Cards.Count + 1);
             dealer.Hand.Add(deck.Cards[chosenCard]);
-            if (deck.Cards[chosenCard].Name == "Ace")
-            {
-                Console.WriteLine("You drew an Ace would you like it to be a 1 or an 11");
-                int response = Tools.GetValue(Console.ReadLine());
-                
-            }
-            dealerTotal += deck.Cards[chosenCard].Value;
+            Card.AceValue(deck.Cards[chosenCard], dealerTotal);
             deck.Cards.RemoveAt(chosenCard);
-
-
 
 
             chosenCard = rnd.Next(0, deck.Cards.Count + 1);
             player.Hand.Add(deck.Cards[chosenCard]);
-            total =+ deck.Cards[chosenCard].Value;
+            Card.AceValue(deck.Cards[chosenCard], total);
+            total += deck.Cards[chosenCard].Value;
             deck.Cards.RemoveAt(chosenCard);
 
             chosenCard = rnd.Next(0, deck.Cards.Count + 1);
             player.Hand.Add(deck.Cards[chosenCard]);
-            total =+ deck.Cards[chosenCard].Value;
+            Card.AceValue(deck.Cards[chosenCard], total);
+            total += deck.Cards[chosenCard].Value;
             deck.Cards.RemoveAt(chosenCard);
 
             while (true)
             {
-                while (total <= 21)
+                while (total < 20)
                 {
                     Console.WriteLine($"Your Hand total is: {total} \nThe Dealer's total is: {dealerTotal}");
                     Console.WriteLine("Would you like to hit or stay? (h for hit, s for stay)");
@@ -245,27 +266,43 @@ namespace FinalProjectOOP
                     {
                         chosenCard = rnd.Next(0, deck.Cards.Count + 1);
                         player.Hand.Add(deck.Cards[chosenCard]);
-                        total = +deck.Cards[chosenCard].Value;
+                        Card.AceValue(deck.Cards[chosenCard], total );
+                        total += deck.Cards[chosenCard].Value;
                         deck.Cards.RemoveAt(chosenCard);
                     }
                     else
                     {
                         Console.WriteLine($"Your total is: {total}");
-                        Console.ReadKey(true);
+                        
                         break;
                     }
                 }
 
-                while(dealerTotal < 17)
+                while(dealerTotal <= 17)
                 {
+                    
                     Console.WriteLine($"Your total: {total}" +
                         $"\nDealer total: {dealerTotal}");
+
                     Console.ReadKey(true);
+
+                    dealerTotal += dealer.Hand[1].Value;
+
+
                     chosenCard = rnd.Next(0, deck.Cards.Count + 1);
                     dealer.Hand.Add(deck.Cards[chosenCard]);
+                    Card.AceValue(deck.Cards[chosenCard], dealerTotal);
                     dealerTotal += deck.Cards[chosenCard].Value;
                     deck.Cards.RemoveAt(chosenCard);
+
+                    if(dealerTotal > 21)
+                    {
+                        break;
+
+                    }
                 }
+                Console.WriteLine($"Your total: {total} \nDealer's total: {dealerTotal}");
+                Console.ReadKey(true);
 
                 if (total > 21)
                 {
@@ -325,12 +362,7 @@ namespace FinalProjectOOP
                     }
 
             }
-
-            
-
-
         }
-
     }
 
     public class Racing

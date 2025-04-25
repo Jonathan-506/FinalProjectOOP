@@ -12,7 +12,7 @@ namespace FinalProjectOOP
 
         public double Chips { get; set; }
 
-        public List<Card> Hand { get; set; }
+        public List<Card> Hand { get; set; } = new List<Card>();
 
 
     }
@@ -24,6 +24,7 @@ namespace FinalProjectOOP
 
         public Player()
         {
+            Hand = new List<Card>();
            
         }
 
